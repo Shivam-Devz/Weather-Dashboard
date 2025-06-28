@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Allows searching by pressing Enter key
     cityInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             searchButton.click();
@@ -30,9 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     async function getWeatherData(city) {
-        hideError(); // Hide any previous errors
+        hideError(); 
         try {
-            const response = await fetch(`${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`); // units=metric for Celsius
+            const response = await fetch(`${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`); 
             const data = await response.json();
 
             if (response.ok) {
@@ -57,14 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         humidityElem.textContent = `Humidity: ${data.main.humidity}%`;
         windSpeedElem.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
-        // Clear input after successful search
         cityInput.value = '';
     }
 
     function displayError(message) {
         errorMessageElem.textContent = message;
         errorMessageElem.style.display = 'block';
-        // Clear previous weather info when an error occurs
         cityNameElem.textContent = '';
         weatherIconElem.src = '';
         weatherIconElem.alt = '';
